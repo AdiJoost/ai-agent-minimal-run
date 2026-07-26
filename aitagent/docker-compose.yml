@@ -1,0 +1,31 @@
+
+services:
+  aitagent:
+    image: ajoostham/aitagent:latest
+    container_name: aitagent
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/aitagent/data
+    restart: unless-stopped
+
+  aitmcpserver:
+    image: ajoostham/ait-mcp:latest
+    container_name: aitmcpserver
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
